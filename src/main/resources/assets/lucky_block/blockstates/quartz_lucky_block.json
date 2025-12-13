@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "lucky_block:block/quartz_lucky_block"
+    }
+  }
+}

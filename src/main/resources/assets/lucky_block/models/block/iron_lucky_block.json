@@ -1,0 +1,6 @@
+{
+  "parent": "lucky_block:block/lucky_block",
+  "textures": {
+    "all": "minecraft:block/iron_block"
+  }
+}
