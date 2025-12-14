@@ -1,6 +1,5 @@
 package dev.dubhe.lucky.data;
 
-import dev.dubhe.lucky.LuckyBlockMod;
 import dev.dubhe.lucky.effect.LuckyBlockEffect;
 import dev.dubhe.lucky.effect.LuckyBlockEffectHolder;
 import net.minecraft.core.HolderLookup;
@@ -33,11 +32,14 @@ public class ModLuckyBlockEffectProvider extends LuckyBlockEffectProvider {
         Consumer<LuckyBlockEffectHolder> saver,
         ExistingFileHelper existingFileHelper
     ) {
-        LuckyBlockEffect.Builder
-            .effect()
-            .type(LuckyBlockEffect.Type.ORDINARY)
-            .weight(1)
-            .rewards(builder -> builder.addExperience(1))
-            .save(saver, "exp_01");
+        for (int i = 0; i < 100; i++) {
+            int finalI = i;
+            LuckyBlockEffect.Builder
+                .effect()
+                .type(i < 35 ? LuckyBlockEffect.Type.ORDINARY : LuckyBlockEffect.Type.GOOD_LUCK)
+                .weight(i)
+                .rewards(builder -> builder.addExperience(100 - finalI))
+                .save(saver, "exp_0%s".formatted(i));
+        }
     }
 }

@@ -16,11 +16,15 @@ import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraftforge.common.ForgeHooks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 public class ServerLuckyBlockEffectManager extends SimpleJsonResourceReloadListener {
@@ -31,6 +35,44 @@ public class ServerLuckyBlockEffectManager extends SimpleJsonResourceReloadListe
     public ServerLuckyBlockEffectManager(HolderLookup.Provider provider) {
         super(ServerLuckyBlockEffectManager.GSON, Registries.elementsDirPath(ModRegistries.LUCKY_BLOCK_EFFECT));
         this.registries = provider;
+    }
+
+    public LuckyBlockEffectHolder random(@NotNull RandomSource randomSource, int luckyLevel, int luckyEffectLevel) {
+        int lucky = luckyLevel + 15 * luckyEffectLevel - 20;
+        double luck = Math.pow(1.05, lucky);
+        List<Normalization> normalizations = getNormalizations(luck);
+        double nexted = randomSource.nextDouble();
+        for (Normalization normalization : normalizations) {
+            if (nexted < normalization.chance) {
+                return normalization.holder;
+            }
+            nexted -= normalization.chance;
+        }
+        return null;
+    }
+
+    public record Normalization(LuckyBlockEffectHolder holder, double chance) {
+    }
+
+    private @NotNull List<Normalization> getNormalizations(double luck) {
+        List<Normalization> normalizations = new ArrayList<>();
+        double sum = 0;
+        for (LuckyBlockEffectHolder value : effects.values()) {
+            switch (value.value().type()) {
+                case GOOD_LUCK -> sum += value.value().weight() * 3 * luck;
+                case AWFUL -> sum += value.value().weight() * luck;
+                default -> sum += value.value().weight() * 2 * luck;
+            }
+        }
+        for (LuckyBlockEffectHolder value : effects.values()) {
+            switch (value.value().type()) {
+                case GOOD_LUCK -> normalizations.add(new Normalization(value, value.value().weight() * 3 * luck / sum));
+                case AWFUL -> normalizations.add(new Normalization(value, value.value().weight() * luck / sum));
+                default -> normalizations.add(new Normalization(value, value.value().weight() * 2 * luck / sum));
+            }
+        }
+        Collections.shuffle(normalizations);
+        return normalizations;
     }
 
     @Override
