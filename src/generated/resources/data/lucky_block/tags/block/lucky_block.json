@@ -1,0 +1,14 @@
+{
+  "values": [
+    "lucky_block:amethyst_lucky_block",
+    "lucky_block:coal_lucky_block",
+    "lucky_block:copper_lucky_block",
+    "lucky_block:diamond_lucky_block",
+    "lucky_block:emerald_lucky_block",
+    "lucky_block:golden_lucky_block",
+    "lucky_block:iron_lucky_block",
+    "lucky_block:lapis_lazuli_lucky_block",
+    "lucky_block:netherite_lucky_block",
+    "lucky_block:quartz_lucky_block"
+  ]
+}

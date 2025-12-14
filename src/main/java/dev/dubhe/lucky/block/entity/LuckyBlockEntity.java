@@ -44,7 +44,7 @@ public class LuckyBlockEntity extends BlockEntity {
     }
 
     public void setLucky(int lucky) {
-        this.lucky += lucky;
+        this.lucky = lucky;
     }
 
     public void onBreak(MinecraftServer server, @NotNull ServerLevel level, @NotNull BlockPos pos, @Nullable ServerPlayer player) {

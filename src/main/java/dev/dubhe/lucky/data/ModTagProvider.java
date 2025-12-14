@@ -4,6 +4,7 @@ import dev.dubhe.lucky.LuckyBlockMod;
 import dev.dubhe.lucky.init.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.BlockTagsProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
@@ -34,5 +35,8 @@ public class ModTagProvider extends BlockTagsProvider {
             ModBlocks.NETHERITE_LUCKY_BLOCK.get(),
             ModBlocks.QUARTZ_LUCKY_BLOCK.get()
         );
+
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+            .addTag(ModBlocks.Tags.LUCKY_BLOCK);
     }
 }

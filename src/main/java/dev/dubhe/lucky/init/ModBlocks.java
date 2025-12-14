@@ -24,6 +24,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.GOLD_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -35,6 +36,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.DIAMOND_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -46,6 +48,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.IRON_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -57,6 +60,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.COAL_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -68,6 +72,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.AMETHYST_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -79,6 +84,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.EMERALD_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -90,6 +96,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.COPPER_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -101,6 +108,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.LAPIS_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -112,6 +120,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.NETHERITE_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
@@ -123,6 +132,7 @@ public class ModBlocks {
                 .ofFullCopy(Blocks.QUARTZ_BLOCK)
                 .lightLevel((state) -> 4)
                 .noOcclusion()
+                .strength(0.8F)
         )
     );
 
