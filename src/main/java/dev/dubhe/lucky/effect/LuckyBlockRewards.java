@@ -12,8 +12,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
+import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.StructureBlockEntity;
@@ -31,7 +31,7 @@ import java.util.Optional;
 public record LuckyBlockRewards(
     int experience,
     List<ResourceKey<LootTable>> loot,
-    List<ResourceLocation> recipes,
+    List<String> commands,
     Optional<ResourceLocation> structure,
     Optional<CacheableFunction> function
 ) {
@@ -39,14 +39,13 @@ public record LuckyBlockRewards(
         p_325186_ -> p_325186_.group(
                 Codec.INT.optionalFieldOf("experience", 0).forGetter(LuckyBlockRewards::experience),
                 ResourceKey.codec(Registries.LOOT_TABLE).listOf().optionalFieldOf("loot", List.of()).forGetter(LuckyBlockRewards::loot),
-                ResourceLocation.CODEC.listOf().optionalFieldOf("recipes", List.of()).forGetter(LuckyBlockRewards::recipes),
+                Codec.STRING.listOf().optionalFieldOf("commands", List.of()).forGetter(LuckyBlockRewards::commands),
                 ResourceLocation.CODEC.optionalFieldOf("structure").forGetter(LuckyBlockRewards::structure),
                 CacheableFunction.CODEC.optionalFieldOf("function").forGetter(LuckyBlockRewards::function)
             )
             .apply(p_325186_, LuckyBlockRewards::new)
     );
 
-    @SuppressWarnings("resource")
     public void grant(MinecraftServer server, ServerLevel level, @NotNull CommandSourceStack stack, BlockPos pos) {
         this.structure.ifPresent(structure -> {
             StructureTemplateManager manager = level.getStructureManager();
@@ -69,45 +68,33 @@ public record LuckyBlockRewards(
             ));
         ServerPlayer player = stack.getPlayer();
         if (player == null) return;
-        player.giveExperiencePoints(this.experience);
+        int exp = this.experience;
+        while (exp > 0) {
+            int spa = Math.min(exp, 7);
+            exp -= spa;
+            ExperienceOrb orb = new ExperienceOrb(level, pos.getX(), pos.getY(), pos.getZ(), spa);
+            level.addFreshEntity(orb);
+        }
         LootParams lootparams = new LootParams.Builder(player.serverLevel())
             .withParameter(LootContextParams.THIS_ENTITY, player)
             .withParameter(LootContextParams.ORIGIN, player.position())
             .withLuck(player.getLuck())
             .create(LootContextParamSets.ADVANCEMENT_REWARD);
-        boolean flag = false;
 
         for (ResourceKey<LootTable> resourcekey : this.loot) {
-            for (ItemStack itemstack : player.server.reloadableRegistries().getLootTable(resourcekey).getRandomItems(lootparams)) {
-                if (player.addItem(itemstack)) {
-                    player.level()
-                        .playSound(
-                            null,
-                            player.getX(),
-                            player.getY(),
-                            player.getZ(),
-                            SoundEvents.ITEM_PICKUP,
-                            SoundSource.PLAYERS,
-                            0.2F,
-                            ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F
-                        );
-                    flag = true;
-                } else {
-                    ItemEntity itementity = player.drop(itemstack, false);
-                    if (itementity != null) {
-                        itementity.setNoPickUpDelay();
-                        itementity.setTarget(player.getUUID());
-                    }
-                }
+            for (ItemStack itemstack : server.reloadableRegistries().getLootTable(resourcekey).getRandomItems(lootparams)) {
+                ItemEntity itementity = new ItemEntity(level, pos.getX() + 0.5d, pos.getY() + 0.5d, pos.getZ() + 0.5d, itemstack);
+                float f = level.random.nextFloat() * 0.5F;
+                float f1 = level.random.nextFloat() * (float) (Math.PI * 2);
+                itementity.setDeltaMovement(-Mth.sin(f1) * f, 0.2F, Mth.cos(f1) * f);
+                level.addFreshEntity(itementity);
             }
         }
 
-        if (flag) {
-            player.containerMenu.broadcastChanges();
-        }
-
-        if (!this.recipes.isEmpty()) {
-            player.awardRecipesByKey(this.recipes);
+        if (!this.commands.isEmpty()) {
+            for (String command : commands) {
+                server.getCommands().performPrefixedCommand(stack, command);
+            }
         }
     }
 
@@ -115,7 +102,7 @@ public record LuckyBlockRewards(
     public static class Builder {
         private int experience;
         private final ImmutableList.Builder<ResourceKey<LootTable>> loot = ImmutableList.builder();
-        private final ImmutableList.Builder<ResourceLocation> recipes = ImmutableList.builder();
+        private final ImmutableList.Builder<String> commands = ImmutableList.builder();
         private Optional<ResourceLocation> structure = Optional.empty();
         private Optional<ResourceLocation> function = Optional.empty();
 
@@ -137,12 +124,12 @@ public record LuckyBlockRewards(
             return this;
         }
 
-        public static LuckyBlockRewards.Builder recipe(ResourceLocation location) {
-            return new LuckyBlockRewards.Builder().addRecipe(location);
+        public static LuckyBlockRewards.Builder command(String command) {
+            return new LuckyBlockRewards.Builder().addCommand(command);
         }
 
-        public LuckyBlockRewards.Builder addRecipe(ResourceLocation location) {
-            this.recipes.add(location);
+        public LuckyBlockRewards.Builder addCommand(String command) {
+            this.commands.add(command);
             return this;
         }
 
@@ -168,7 +155,7 @@ public record LuckyBlockRewards(
             return new LuckyBlockRewards(
                 this.experience,
                 this.loot.build(),
-                this.recipes.build(),
+                this.commands.build(),
                 this.structure,
                 this.function.map(CacheableFunction::new)
             );
