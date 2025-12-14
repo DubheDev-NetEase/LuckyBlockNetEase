@@ -1,5 +1,6 @@
 package dev.dubhe.lucky.data;
 
+import dev.dubhe.lucky.data.effect.LuckyBlockEffectProvider;
 import dev.dubhe.lucky.effect.LuckyBlockEffect;
 import dev.dubhe.lucky.effect.LuckyBlockEffectHolder;
 import net.minecraft.core.HolderLookup;

@@ -1,6 +1,5 @@
-package dev.dubhe.lucky.data;
+package dev.dubhe.lucky.data.effect;
 
-import dev.dubhe.lucky.LuckyBlockMod;
 import dev.dubhe.lucky.effect.LuckyBlockEffect;
 import dev.dubhe.lucky.effect.LuckyBlockEffectHolder;
 import dev.dubhe.lucky.init.ModRegistries;
