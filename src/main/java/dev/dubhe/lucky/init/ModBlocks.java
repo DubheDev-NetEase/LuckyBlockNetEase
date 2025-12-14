@@ -2,8 +2,12 @@ package dev.dubhe.lucky.init;
 
 import dev.dubhe.lucky.LuckyBlockMod;
 import dev.dubhe.lucky.block.LuckyBlock;
+import dev.dubhe.lucky.block.entity.LuckyBlockEntity;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -121,4 +125,36 @@ public class ModBlocks {
                 .noOcclusion()
         )
     );
+
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(
+        ForgeRegistries.BLOCK_ENTITY_TYPES,
+        LuckyBlockMod.MOD_ID
+    );
+
+    @SuppressWarnings("DataFlowIssue")
+    public static final RegistryObject<BlockEntityType<LuckyBlockEntity>> LUCKY_BLOCK = BLOCK_ENTITY_TYPES.register(
+        "lucky_block",
+        () -> BlockEntityType.Builder
+            .of(
+                LuckyBlockEntity::new,
+                GOLDEN_LUCKY_BLOCK.get(),
+                DIAMOND_LUCKY_BLOCK.get(),
+                IRON_LUCKY_BLOCK.get(),
+                COAL_LUCKY_BLOCK.get(),
+                AMETHYST_LUCKY_BLOCK.get(),
+                EMERALD_LUCKY_BLOCK.get(),
+                COPPER_LUCKY_BLOCK.get(),
+                LAPIS_LAZULI_LUCKY_BLOCK.get(),
+                NETHERITE_LUCKY_BLOCK.get(),
+                QUARTZ_LUCKY_BLOCK.get()
+            )
+            .build(null)
+    );
+
+    public static class Tags {
+        public static final TagKey<Block> LUCKY_BLOCK = TagKey.create(
+            Registries.BLOCK,
+            LuckyBlockMod.location("lucky_block")
+        );
+    }
 }

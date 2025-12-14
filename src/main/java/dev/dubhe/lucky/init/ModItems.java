@@ -2,7 +2,10 @@ package dev.dubhe.lucky.init;
 
 import dev.dubhe.lucky.LuckyBlockMod;
 import dev.dubhe.lucky.item.LuckyBlockItem;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -85,4 +88,18 @@ public class ModItems {
         "quartz_lucky_block",
         () -> new LuckyBlockItem(ModBlocks.QUARTZ_LUCKY_BLOCK.get(), new Item.Properties())
     );
+
+    public static class DataComponents {
+        public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENT_TYPES = DeferredRegister.create(
+            Registries.DATA_COMPONENT_TYPE,
+            LuckyBlockMod.MOD_ID
+        );
+        public static final RegistryObject<DataComponentType<Integer>> LUCKY = DATA_COMPONENT_TYPES.register(
+            "lucky",
+            () -> DataComponentType.<Integer>builder()
+                .persistent(ExtraCodecs.NON_NEGATIVE_INT)
+                .networkSynchronized(ByteBufCodecs.VAR_INT)
+                .build()
+        );
+    }
 }
