@@ -32,11 +32,11 @@ public class ModLuckyBlockEffectProvider extends LuckyBlockEffectProvider {
         Consumer<LuckyBlockEffectHolder> saver,
         ExistingFileHelper existingFileHelper
     ) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 50; i < 100; i++) {
             int finalI = i;
             LuckyBlockEffect.Builder
                 .effect()
-                .type(i < 35 ? LuckyBlockEffect.Type.ORDINARY : LuckyBlockEffect.Type.GOOD_LUCK)
+                .type(i < 75 ? LuckyBlockEffect.Type.ORDINARY : LuckyBlockEffect.Type.GOOD_LUCK)
                 .weight(i)
                 .rewards(builder -> builder.addExperience(100 - finalI))
                 .save(saver, "exp_0%s".formatted(i));
