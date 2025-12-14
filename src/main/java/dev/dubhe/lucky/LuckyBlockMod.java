@@ -24,6 +24,7 @@ public class LuckyBlockMod {
     public LuckyBlockMod() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         ModBlocks.BLOCKS.register(modEventBus);
+        ModBlocks.BLOCK_ENTITY_TYPES.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModItems.CREATIVE_MODE_TABS.register(modEventBus);
         ModItems.DataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
