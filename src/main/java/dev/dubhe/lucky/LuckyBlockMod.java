@@ -26,6 +26,7 @@ public class LuckyBlockMod {
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModItems.CREATIVE_MODE_TABS.register(modEventBus);
+        ModItems.DataComponents.DATA_COMPONENT_TYPES.register(modEventBus);
         MinecraftForge.EVENT_BUS.addListener(this::onResourceReload);
         MinecraftForge.EVENT_BUS.addListener(this::onServerStopped);
     }
