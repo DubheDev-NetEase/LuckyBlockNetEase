@@ -1,0 +1,16 @@
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute
+summon minecraft:piglin_brute

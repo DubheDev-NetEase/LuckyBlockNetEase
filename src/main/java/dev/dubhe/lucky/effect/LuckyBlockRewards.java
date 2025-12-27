@@ -77,7 +77,7 @@ public record LuckyBlockRewards(
         }
         LootParams lootparams = new LootParams.Builder(player.serverLevel())
             .withParameter(LootContextParams.THIS_ENTITY, player)
-            .withParameter(LootContextParams.ORIGIN, player.position())
+            .withParameter(LootContextParams.ORIGIN, pos.getCenter())
             .withLuck(player.getLuck())
             .create(LootContextParamSets.ADVANCEMENT_REWARD);
 

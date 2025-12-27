@@ -1,0 +1,7 @@
+{
+  "type": "lucky_block:good_luck",
+  "rewards": {
+    "function": "lucky_block:large_cube/large_amethyst_cube"
+  },
+  "weight": 100
+}

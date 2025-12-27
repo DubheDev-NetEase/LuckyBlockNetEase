@@ -1,0 +1,16 @@
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin
+summon minecraft:piglin

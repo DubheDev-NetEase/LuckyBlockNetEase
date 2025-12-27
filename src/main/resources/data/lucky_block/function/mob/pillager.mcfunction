@@ -1,0 +1,16 @@
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager
+summon minecraft:pillager

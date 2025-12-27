@@ -1,0 +1,16 @@
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze
+summon minecraft:blaze

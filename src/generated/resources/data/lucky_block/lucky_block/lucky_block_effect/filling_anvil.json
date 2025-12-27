@@ -1,0 +1,7 @@
+{
+  "type": "lucky_block:awful",
+  "rewards": {
+    "function": "lucky_block:filling_anvil"
+  },
+  "weight": 120
+}

@@ -1,0 +1,7 @@
+{
+  "type": "lucky_block:awful",
+  "rewards": {
+    "function": "lucky_block:mob/evoker"
+  },
+  "weight": 35
+}
