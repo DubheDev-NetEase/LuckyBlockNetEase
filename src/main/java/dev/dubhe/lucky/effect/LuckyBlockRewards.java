@@ -64,6 +64,7 @@ public record LuckyBlockRewards(
             .ifPresent(commandFunction -> server.getFunctions().execute(
                 commandFunction,
                 stack.withSuppressedOutput()
+                    .withPosition(pos.getCenter())
                     .withPermission(2)
             ));
         ServerPlayer player = stack.getPlayer();
