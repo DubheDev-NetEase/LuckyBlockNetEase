@@ -6,7 +6,7 @@ import dev.dubhe.lucky.init.ModBlocks;
 import dev.dubhe.lucky.init.ModItems;
 import dev.dubhe.lucky.server.ServerLuckyBlockEffectManager;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -38,8 +38,8 @@ public class LuckyBlockMod {
         NeoForge.EVENT_BUS.addListener(this::onBlockBreak);
     }
 
-    public static ResourceLocation location(String path) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    public static Identifier location(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 
     public void onResourceReload(AddServerReloadListenersEvent event) {

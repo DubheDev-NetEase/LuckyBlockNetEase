@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import dev.dubhe.lucky.effect.LuckyBlockEffect;
 import dev.dubhe.lucky.effect.LuckyBlockEffectHolder;
 import dev.dubhe.lucky.init.ModRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.RandomSource;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ServerLuckyBlockEffectManager extends SimpleJsonResourceReloadListener<java.util.Optional<LuckyBlockEffect>> {
-    private Map<ResourceLocation, LuckyBlockEffectHolder> effects = Map.of();
+    private Map<Identifier, LuckyBlockEffectHolder> effects = Map.of();
 
     public ServerLuckyBlockEffectManager() {
         super(net.neoforged.neoforge.common.conditions.ConditionalOps.createConditionalCodec(LuckyBlockEffect.CODEC),
@@ -63,13 +63,13 @@ public class ServerLuckyBlockEffectManager extends SimpleJsonResourceReloadListe
     }
 
     @Override
-    protected void apply(Map<ResourceLocation, java.util.Optional<LuckyBlockEffect>> map, ResourceManager manager, ProfilerFiller filler) {
-        ImmutableMap.Builder<ResourceLocation, LuckyBlockEffectHolder> builder = ImmutableMap.builder();
+    protected void apply(Map<Identifier, java.util.Optional<LuckyBlockEffect>> map, ResourceManager manager, ProfilerFiller filler) {
+        ImmutableMap.Builder<Identifier, LuckyBlockEffectHolder> builder = ImmutableMap.builder();
         map.forEach((id, effect) -> effect.ifPresent(value -> builder.put(id, new LuckyBlockEffectHolder(id, value))));
         this.effects = builder.buildOrThrow();
     }
 
-    public LuckyBlockEffectHolder get(ResourceLocation location) {
+    public LuckyBlockEffectHolder get(Identifier location) {
         return this.effects.get(location);
     }
 

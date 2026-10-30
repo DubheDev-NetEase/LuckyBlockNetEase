@@ -1,8 +1,8 @@
 package dev.dubhe.lucky.effect;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
-public record LuckyBlockEffectHolder(ResourceLocation id, LuckyBlockEffect value) {
+public record LuckyBlockEffectHolder(Identifier id, LuckyBlockEffect value) {
     @Override
     public boolean equals(Object object) {
         return this == object || (object instanceof LuckyBlockEffectHolder holder && this.id().equals(holder.id()));

@@ -27,7 +27,7 @@ public class ModCommands {
     public static void onCommandRegister(RegisterCommandsEvent event) {
         event.getDispatcher().register(
             Commands.literal("lb")
-                .requires(source -> source.hasPermission(Commands.LEVEL_ADMINS))
+                .requires(source -> Commands.LEVEL_ADMINS.check(source.permissions()))
                 .then(
                     Commands.literal("effects")
                         .executes(ModCommands::effects)

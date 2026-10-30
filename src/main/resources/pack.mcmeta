@@ -2,12 +2,17 @@
   "pack": {
     "description": "幸运方块资源与数据",
     "min_format": [
-      69,
+      75,
       0
     ],
     "max_format": [
-      88,
-      0
+      94,
+      1
+    ],
+    "pack_format": 94,
+    "supported_formats": [
+      75,
+      94
     ]
   }
 }

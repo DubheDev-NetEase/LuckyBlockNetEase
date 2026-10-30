@@ -8,7 +8,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,7 +31,7 @@ public record LuckyBlockRewards(
     int experience,
     List<ResourceKey<LootTable>> loot,
     List<String> commands,
-    Optional<ResourceLocation> structure,
+    Optional<Identifier> structure,
     Optional<CacheableFunction> function
 ) {
     public static final Codec<LuckyBlockRewards> CODEC = RecordCodecBuilder.create(
@@ -39,7 +39,7 @@ public record LuckyBlockRewards(
                 Codec.INT.optionalFieldOf("experience", 0).forGetter(LuckyBlockRewards::experience),
                 ResourceKey.codec(Registries.LOOT_TABLE).listOf().optionalFieldOf("loot", List.of()).forGetter(LuckyBlockRewards::loot),
                 Codec.STRING.listOf().optionalFieldOf("commands", List.of()).forGetter(LuckyBlockRewards::commands),
-                ResourceLocation.CODEC.optionalFieldOf("structure").forGetter(LuckyBlockRewards::structure),
+                Identifier.CODEC.optionalFieldOf("structure").forGetter(LuckyBlockRewards::structure),
                 CacheableFunction.CODEC.optionalFieldOf("function").forGetter(LuckyBlockRewards::function)
             )
             .apply(p_325186_, LuckyBlockRewards::new)
@@ -64,7 +64,7 @@ public record LuckyBlockRewards(
                 commandFunction,
                 stack.withSuppressedOutput()
                     .withPosition(pos.getCenter())
-                    .withPermission(2)
+                    .withPermission(net.minecraft.server.permissions.LevelBasedPermissionSet.GAMEMASTER)
             ));
         ServerPlayer player = stack.getPlayer();
         if (player == null) {
@@ -104,8 +104,8 @@ public record LuckyBlockRewards(
         private int experience;
         private final ImmutableList.Builder<ResourceKey<LootTable>> loot = ImmutableList.builder();
         private final ImmutableList.Builder<String> commands = ImmutableList.builder();
-        private Optional<ResourceLocation> structure = Optional.empty();
-        private Optional<ResourceLocation> function = Optional.empty();
+        private Optional<Identifier> structure = Optional.empty();
+        private Optional<Identifier> function = Optional.empty();
 
         public static LuckyBlockRewards.Builder experience(int exp) {
             return new LuckyBlockRewards.Builder().addExperience(exp);
@@ -134,20 +134,20 @@ public record LuckyBlockRewards(
             return this;
         }
 
-        public static LuckyBlockRewards.Builder function(ResourceLocation location) {
+        public static LuckyBlockRewards.Builder function(Identifier location) {
             return new LuckyBlockRewards.Builder().runs(location);
         }
 
-        public LuckyBlockRewards.Builder runs(ResourceLocation location) {
+        public LuckyBlockRewards.Builder runs(Identifier location) {
             this.function = Optional.of(location);
             return this;
         }
 
-        public static LuckyBlockRewards.Builder structure(ResourceLocation location) {
+        public static LuckyBlockRewards.Builder structure(Identifier location) {
             return new LuckyBlockRewards.Builder().placed(location);
         }
 
-        public LuckyBlockRewards.Builder placed(ResourceLocation location) {
+        public LuckyBlockRewards.Builder placed(Identifier location) {
             this.structure = Optional.of(location);
             return this;
         }

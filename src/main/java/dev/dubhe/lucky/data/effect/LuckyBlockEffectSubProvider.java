@@ -3,7 +3,7 @@ package dev.dubhe.lucky.data.effect;
 import dev.dubhe.lucky.effect.LuckyBlockEffect;
 import dev.dubhe.lucky.effect.LuckyBlockEffectHolder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.Consumer;
 
@@ -14,6 +14,6 @@ public interface LuckyBlockEffectSubProvider {
     );
 
     static LuckyBlockEffectHolder createPlaceholder(String string) {
-        return LuckyBlockEffect.Builder.effect().build(ResourceLocation.parse(string));
+        return LuckyBlockEffect.Builder.effect().build(Identifier.parse(string));
     }
 }

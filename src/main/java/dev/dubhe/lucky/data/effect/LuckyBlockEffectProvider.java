@@ -7,7 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.nio.file.Path;
@@ -49,7 +49,7 @@ public class LuckyBlockEffectProvider implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
         return this.registries.thenCompose(provider -> {
-            Set<ResourceLocation> set = new HashSet<>();
+            Set<Identifier> set = new HashSet<>();
             List<CompletableFuture<?>> list = new ArrayList<>();
             Consumer<LuckyBlockEffectHolder> consumer = holder -> {
                 if (!set.add(holder.id())) {
