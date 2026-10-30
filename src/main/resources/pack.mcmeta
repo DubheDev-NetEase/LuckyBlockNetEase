@@ -8,6 +8,11 @@
     "max_format": [
       88,
       0
+    ],
+    "pack_format": 88,
+    "supported_formats": [
+      69,
+      88
     ]
   }
 }
