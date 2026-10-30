@@ -5,24 +5,20 @@ import dev.dubhe.lucky.init.ModBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
 
 import java.util.concurrent.CompletableFuture;
 
 public class ModTagProvider extends BlockTagsProvider {
     public ModTagProvider(
         PackOutput output,
-        CompletableFuture<HolderLookup.Provider> lookupProvider,
-        @Nullable ExistingFileHelper existingFileHelper
+        CompletableFuture<HolderLookup.Provider> lookupProvider
     ) {
-        super(output, lookupProvider, LuckyBlockMod.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, LuckyBlockMod.MOD_ID);
     }
 
     @Override
-    protected void addTags(@NotNull HolderLookup.Provider lookupProvider) {
+    protected void addTags(HolderLookup.Provider lookupProvider) {
         tag(ModBlocks.Tags.LUCKY_BLOCK).add(
             ModBlocks.AMETHYST_LUCKY_BLOCK.get(),
             ModBlocks.COAL_LUCKY_BLOCK.get(),

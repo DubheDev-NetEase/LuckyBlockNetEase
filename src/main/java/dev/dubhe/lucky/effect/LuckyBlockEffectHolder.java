@@ -1,7 +1,6 @@
 package dev.dubhe.lucky.effect;
 
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 
 public record LuckyBlockEffectHolder(ResourceLocation id, LuckyBlockEffect value) {
     @Override
@@ -15,7 +14,7 @@ public record LuckyBlockEffectHolder(ResourceLocation id, LuckyBlockEffect value
     }
 
     @Override
-    public @NotNull String toString() {
+    public String toString() {
         return this.id.toString();
     }
 }

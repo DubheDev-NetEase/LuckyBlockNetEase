@@ -23,7 +23,6 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +45,7 @@ public record LuckyBlockRewards(
             .apply(p_325186_, LuckyBlockRewards::new)
     );
 
-    public void grant(MinecraftServer server, ServerLevel level, @NotNull CommandSourceStack stack, BlockPos pos) {
+    public void grant(MinecraftServer server, ServerLevel level, CommandSourceStack stack, BlockPos pos) {
         this.structure.ifPresent(structure -> {
             StructureTemplateManager manager = level.getStructureManager();
             StructurePlaceSettings settings = new StructurePlaceSettings();
@@ -68,7 +67,9 @@ public record LuckyBlockRewards(
                     .withPermission(2)
             ));
         ServerPlayer player = stack.getPlayer();
-        if (player == null) return;
+        if (player == null) {
+            return;
+        }
         int exp = this.experience;
         while (exp > 0) {
             int spa = Math.min(exp, 7);
@@ -76,7 +77,7 @@ public record LuckyBlockRewards(
             ExperienceOrb orb = new ExperienceOrb(level, pos.getX(), pos.getY(), pos.getZ(), spa);
             level.addFreshEntity(orb);
         }
-        LootParams lootparams = new LootParams.Builder(player.serverLevel())
+        LootParams lootparams = new LootParams.Builder(player.level())
             .withParameter(LootContextParams.THIS_ENTITY, player)
             .withParameter(LootContextParams.ORIGIN, pos.getCenter())
             .withLuck(player.getLuck())
@@ -99,7 +100,6 @@ public record LuckyBlockRewards(
         }
     }
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static class Builder {
         private int experience;
         private final ImmutableList.Builder<ResourceKey<LootTable>> loot = ImmutableList.builder();

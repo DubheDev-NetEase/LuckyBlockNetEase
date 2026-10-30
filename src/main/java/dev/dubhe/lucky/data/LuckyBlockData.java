@@ -4,25 +4,24 @@ import dev.dubhe.lucky.LuckyBlockMod;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.concurrent.CompletableFuture;
 
-@Mod.EventBusSubscriber(modid = LuckyBlockMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = LuckyBlockMod.MOD_ID)
 public class LuckyBlockData {
     @SubscribeEvent
-    public static void onGatherData(@NotNull GatherDataEvent event) {
+    public static void onGatherData(GatherDataEvent.Server event) {
         DataGenerator generator = event.getGenerator();
         PackOutput packOutput = generator.getPackOutput();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        ResourceManager existingFileHelper = event.getResourceManager(net.minecraft.server.packs.PackType.SERVER_DATA);
         CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-        generator.addProvider(event.includeServer(), new ModLootTableProvider(packOutput, lookupProvider));
-        generator.addProvider(event.includeServer(), new ModRecipeProvider(packOutput, lookupProvider));
-        generator.addProvider(event.includeServer(), new ModTagProvider(packOutput, lookupProvider, existingFileHelper));
-        generator.addProvider(event.includeServer(), new ModLuckyBlockEffectProvider(packOutput, existingFileHelper, lookupProvider));
+        generator.addProvider(true, new ModLootTableProvider(packOutput, lookupProvider));
+        generator.addProvider(true, new ModRecipeProvider.Runner(packOutput, lookupProvider));
+        generator.addProvider(true, new ModTagProvider(packOutput, lookupProvider));
+        generator.addProvider(true, new ModLuckyBlockEffectProvider(packOutput, existingFileHelper, lookupProvider));
     }
 }

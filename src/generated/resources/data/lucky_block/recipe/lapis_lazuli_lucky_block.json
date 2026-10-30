@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "tag": "minecraft:planks"
-    },
-    "*": {
-      "item": "minecraft:lapis_lazuli"
-    }
+    "#": "#minecraft:planks",
+    "*": "minecraft:lapis_lazuli"
   },
   "pattern": [
     "###",

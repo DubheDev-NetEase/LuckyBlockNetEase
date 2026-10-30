@@ -7,7 +7,6 @@ import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Set;
@@ -30,7 +29,6 @@ public class ModLootTableProvider extends LootTableProvider {
     }
 
     public static class ModLootSubProvider implements LootTableSubProvider {
-        @SuppressWarnings({"unused", "FieldCanBeLocal"})
         private final HolderLookup.Provider provider;
 
         public ModLootSubProvider(HolderLookup.Provider provider) {
@@ -38,7 +36,7 @@ public class ModLootTableProvider extends LootTableProvider {
         }
 
         @Override
-        public void generate(@NotNull BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
+        public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> consumer) {
 
         }
     }

@@ -8,8 +8,7 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public class LuckyBlockEffectProvider implements DataProvider {
     private final List<LuckyBlockEffectSubProvider> subProviders;
 
     public LuckyBlockEffectProvider(
-        @NotNull PackOutput output,
+        PackOutput output,
         CompletableFuture<HolderLookup.Provider> future,
         List<LuckyBlockEffectSubProvider> providers
     ) {
@@ -35,10 +34,10 @@ public class LuckyBlockEffectProvider implements DataProvider {
     }
 
     public LuckyBlockEffectProvider(
-        @NotNull PackOutput output,
+        PackOutput output,
         CompletableFuture<HolderLookup.Provider> future,
-        ExistingFileHelper existingFileHelper,
-        @NotNull List<LuckyBlockEffectGenerator> generators
+        ResourceManager existingFileHelper,
+        List<LuckyBlockEffectGenerator> generators
     ) {
         this(
             output,
@@ -48,7 +47,7 @@ public class LuckyBlockEffectProvider implements DataProvider {
     }
 
     @Override
-    public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {
+    public CompletableFuture<?> run(CachedOutput output) {
         return this.registries.thenCompose(provider -> {
             Set<ResourceLocation> set = new HashSet<>();
             List<CompletableFuture<?>> list = new ArrayList<>();
@@ -70,14 +69,14 @@ public class LuckyBlockEffectProvider implements DataProvider {
     }
 
     @Override
-    public @NotNull String getName() {
+    public String getName() {
         return "LuckyBlockEffects";
     }
 
     public interface LuckyBlockEffectGenerator {
-        void generate(HolderLookup.Provider registries, Consumer<LuckyBlockEffectHolder> saver, ExistingFileHelper existingFileHelper);
+        void generate(HolderLookup.Provider registries, Consumer<LuckyBlockEffectHolder> saver, ResourceManager existingFileHelper);
 
-        default LuckyBlockEffectSubProvider toSubProvider(ExistingFileHelper existingFileHelper) {
+        default LuckyBlockEffectSubProvider toSubProvider(ResourceManager existingFileHelper) {
             return (registries, saver) -> this.generate(registries, saver, existingFileHelper);
         }
     }

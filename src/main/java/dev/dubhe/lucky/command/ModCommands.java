@@ -15,17 +15,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.NotNull;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 
 import java.util.Collection;
 
-@Mod.EventBusSubscriber(modid = LuckyBlockMod.MOD_ID)
+@EventBusSubscriber(modid = LuckyBlockMod.MOD_ID)
 public class ModCommands {
     @SubscribeEvent
-    public static void onCommandRegister(@NotNull RegisterCommandsEvent event) {
+    public static void onCommandRegister(RegisterCommandsEvent event) {
         event.getDispatcher().register(
             Commands.literal("lb")
                 .requires(source -> source.hasPermission(Commands.LEVEL_ADMINS))
@@ -49,7 +48,9 @@ public class ModCommands {
 
     public static int effects(CommandContext<CommandSourceStack> context) {
         ServerLuckyBlockEffectManager manager = LuckyBlockMod.luckyBlockEffectManager;
-        if (manager == null) return 0;
+        if (manager == null) {
+            return 0;
+        }
         Collection<LuckyBlockEffectHolder> holders = manager.getAllEffects();
         int size = holders.size();
         CommandSourceStack source = context.getSource();
@@ -64,7 +65,9 @@ public class ModCommands {
 
     public static int test(CommandContext<CommandSourceStack> context) {
         ServerLuckyBlockEffectManager manager = LuckyBlockMod.luckyBlockEffectManager;
-        if (manager == null) return 0;
+        if (manager == null) {
+            return 0;
+        }
         int lucky;
         try {
             lucky = IntegerArgumentType.getInteger(context, "lucky");
@@ -84,7 +87,9 @@ public class ModCommands {
         if (player != null) {
             randomSource = player.getRandom();
             MobEffectInstance instance = player.getEffect(MobEffects.LUCK);
-            if (instance != null) luckyEffectLevel = instance.getAmplifier();
+            if (instance != null) {
+            luckyEffectLevel = instance.getAmplifier();
+        }
         }
         LuckyBlockEffectHolder holder = manager.random(randomSource, lucky, luckyEffectLevel);
         holder.value().rewards().grant(source.getServer(), source.getLevel(), source, pos);

@@ -9,19 +9,20 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredRegister;
+
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class ModItems {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, LuckyBlockMod.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(Registries.ITEM, LuckyBlockMod.MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(
         Registries.CREATIVE_MODE_TAB,
         LuckyBlockMod.MOD_ID
     );
-    public static final RegistryObject<CreativeModeTab> LUCKY_BLOCK = CREATIVE_MODE_TABS.register(
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> LUCKY_BLOCK = CREATIVE_MODE_TABS.register(
         "lucky_block",
         () -> CreativeModeTab.builder()
+            .title(net.minecraft.network.chat.Component.translatable("itemGroup.lucky_block"))
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ModItems.GOLDEN_LUCKY_BLOCK.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
@@ -39,54 +40,54 @@ public class ModItems {
             .build()
     );
 
-    public static final RegistryObject<LuckyBlockItem> GOLDEN_LUCKY_BLOCK = ITEMS.register( // 金幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> GOLDEN_LUCKY_BLOCK = ITEMS.register(
         "golden_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.GOLDEN_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.GOLDEN_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("golden_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> DIAMOND_LUCKY_BLOCK = ITEMS.register( // 钻石幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> DIAMOND_LUCKY_BLOCK = ITEMS.register(
         "diamond_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.DIAMOND_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.DIAMOND_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("diamond_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> IRON_LUCKY_BLOCK = ITEMS.register( // 铁幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> IRON_LUCKY_BLOCK = ITEMS.register(
         "iron_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.IRON_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.IRON_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("iron_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> COAL_LUCKY_BLOCK = ITEMS.register( // 煤炭幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> COAL_LUCKY_BLOCK = ITEMS.register(
         "coal_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.COAL_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.COAL_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("coal_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> AMETHYST_LUCKY_BLOCK = ITEMS.register( // 紫水晶幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> AMETHYST_LUCKY_BLOCK = ITEMS.register(
         "amethyst_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.AMETHYST_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.AMETHYST_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("amethyst_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> EMERALD_LUCKY_BLOCK = ITEMS.register( // 绿宝石幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> EMERALD_LUCKY_BLOCK = ITEMS.register(
         "emerald_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.EMERALD_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.EMERALD_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("emerald_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> COPPER_LUCKY_BLOCK = ITEMS.register( // 铜幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> COPPER_LUCKY_BLOCK = ITEMS.register(
         "copper_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.COPPER_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.COPPER_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("copper_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> LAPIS_LAZULI_LUCKY_BLOCK = ITEMS.register( // 青金石幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> LAPIS_LAZULI_LUCKY_BLOCK = ITEMS.register(
         "lapis_lazuli_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.LAPIS_LAZULI_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.LAPIS_LAZULI_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("lapis_lazuli_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> NETHERITE_LUCKY_BLOCK = ITEMS.register( // 下界合金幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> NETHERITE_LUCKY_BLOCK = ITEMS.register(
         "netherite_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.NETHERITE_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.NETHERITE_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("netherite_lucky_block"))))
     );
 
-    public static final RegistryObject<LuckyBlockItem> QUARTZ_LUCKY_BLOCK = ITEMS.register( // 石英幸运方块
+    public static final DeferredHolder<Item, LuckyBlockItem> QUARTZ_LUCKY_BLOCK = ITEMS.register(
         "quartz_lucky_block",
-        () -> new LuckyBlockItem(ModBlocks.QUARTZ_LUCKY_BLOCK.get(), new Item.Properties())
+        () -> new LuckyBlockItem(ModBlocks.QUARTZ_LUCKY_BLOCK.get(), new Item.Properties().setId(net.minecraft.resources.ResourceKey.create(Registries.ITEM, LuckyBlockMod.location("quartz_lucky_block"))))
     );
 
     public static class DataComponents {
@@ -94,7 +95,7 @@ public class ModItems {
             Registries.DATA_COMPONENT_TYPE,
             LuckyBlockMod.MOD_ID
         );
-        public static final RegistryObject<DataComponentType<Integer>> LUCKY = DATA_COMPONENT_TYPES.register(
+        public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> LUCKY = DATA_COMPONENT_TYPES.register(
             "lucky",
             () -> DataComponentType.<Integer>builder()
                 .persistent(ExtraCodecs.NON_NEGATIVE_INT)

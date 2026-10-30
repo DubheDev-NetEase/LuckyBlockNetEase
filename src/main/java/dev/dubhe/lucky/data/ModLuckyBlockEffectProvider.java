@@ -6,8 +6,7 @@ import dev.dubhe.lucky.effect.LuckyBlockEffect;
 import dev.dubhe.lucky.effect.LuckyBlockEffectHolder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.server.packs.resources.ResourceManager;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,7 +15,7 @@ import java.util.function.Consumer;
 public class ModLuckyBlockEffectProvider extends LuckyBlockEffectProvider {
     public ModLuckyBlockEffectProvider(
         PackOutput packOutput,
-        @NotNull ExistingFileHelper existingFileHelper,
+        ResourceManager existingFileHelper,
         CompletableFuture<HolderLookup.Provider> future
     ) {
         super(packOutput, future, existingFileHelper, List.of(ModLuckyBlockEffectProvider::generate));
@@ -25,7 +24,7 @@ public class ModLuckyBlockEffectProvider extends LuckyBlockEffectProvider {
     public static void generate(
         HolderLookup.Provider registries,
         Consumer<LuckyBlockEffectHolder> saver,
-        ExistingFileHelper existingFileHelper
+        ResourceManager existingFileHelper
     ) {
         GenerateHelper helper = new GenerateHelper(registries, saver, existingFileHelper);
         for (int i = 50; i < 100; i++) {
@@ -53,16 +52,15 @@ public class ModLuckyBlockEffectProvider extends LuckyBlockEffectProvider {
         helper.awfulFunc("mob/evoker", 35);
     }
 
-    @SuppressWarnings({"unused", "FieldCanBeLocal"})
     public static class GenerateHelper {
         private final HolderLookup.Provider registries;
         private final Consumer<LuckyBlockEffectHolder> saver;
-        private final ExistingFileHelper existingFileHelper;
+        private final ResourceManager existingFileHelper;
 
         public GenerateHelper(
             HolderLookup.Provider registries,
             Consumer<LuckyBlockEffectHolder> saver,
-            ExistingFileHelper existingFileHelper
+            ResourceManager existingFileHelper
         ) {
             this.registries = registries;
             this.saver = saver;

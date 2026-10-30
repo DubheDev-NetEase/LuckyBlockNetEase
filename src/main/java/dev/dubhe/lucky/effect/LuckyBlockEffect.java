@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import dev.dubhe.lucky.LuckyBlockMod;
 import net.minecraft.resources.ResourceLocation;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
 
@@ -48,7 +47,7 @@ public record LuckyBlockEffect(Type type, int weight, LuckyBlockRewards rewards)
         private int weight;
         private final LuckyBlockRewards.Builder rewards = new LuckyBlockRewards.Builder();
 
-        public static @NotNull Builder effect() {
+        public static Builder effect() {
             return new Builder();
         }
 
@@ -62,7 +61,7 @@ public record LuckyBlockEffect(Type type, int weight, LuckyBlockRewards rewards)
             return this;
         }
 
-        public Builder rewards(@NotNull Consumer<LuckyBlockRewards.Builder> consumer) {
+        public Builder rewards(Consumer<LuckyBlockRewards.Builder> consumer) {
             consumer.accept(this.rewards);
             return this;
         }
@@ -79,7 +78,7 @@ public record LuckyBlockEffect(Type type, int weight, LuckyBlockRewards rewards)
             return save(consumer, LuckyBlockMod.location(location));
         }
 
-        public LuckyBlockEffectHolder save(@NotNull Consumer<LuckyBlockEffectHolder> consumer, ResourceLocation location) {
+        public LuckyBlockEffectHolder save(Consumer<LuckyBlockEffectHolder> consumer, ResourceLocation location) {
             LuckyBlockEffectHolder holder = this.build(location);
             consumer.accept(holder);
             return holder;
